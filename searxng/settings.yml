@@ -1,0 +1,30 @@
+# see https://docs.searxng.org/admin/settings/settings.html#settings-use-default-settings
+use_default_settings: true
+server:
+  # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
+  secret_key: "99adbfc6080958cc2c5c6886fa241ccb8f8610bac98ac5e8714dea1f91c464a3"  # change this!
+  limiter: true
+  image_proxy: true
+redis:
+  url: redis://redis:6379/0
+engines:
+  - name: google_jp
+    engine: google
+    language: ja
+    locale: ja-JP
+    shortcut: gjp
+    enabled: true
+
+  - name: google_vn
+    engine: google
+    language: vi
+    locale: vi-VN
+    shortcut: gvn
+    enabled: true
+
+  - name: google_us
+    engine: google
+    language: en
+    locale: en-US
+    shortcut: gus
+    enabled: true
