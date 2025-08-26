@@ -88,4 +88,8 @@ route {
 }
 
 # SearXNG
-reverse_proxy localhost:8080
+{$SEARXNG_HOSTNAME} {
+    tls {$LETSENCRYPT_EMAIL}
+    reverse_proxy searxng:8080
+}
+
