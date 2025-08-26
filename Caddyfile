@@ -60,8 +60,14 @@ route {
 	header @imageproxy Cache-Control "public, max-age=3600"
 }
 
-# SearXNG
+# Redirect HTTP -> HTTPS automatically
+http://{$SEARXNG_HOSTNAME} {
+    redir https://{$SEARXNG_HOSTNAME}{uri} permanent
+}
+
+# SearXNG site
 {$SEARXNG_HOSTNAME} {
     tls {$LETSENCRYPT_EMAIL}
+    encode zstd gzip
     reverse_proxy searxng:8080
 }
