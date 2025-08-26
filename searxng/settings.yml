@@ -2,13 +2,8 @@
 use_default_settings: true
 server:
   # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
-  secret_key: "99adbfc6080958cc2c5c6886fa241ccb8f8610bac98ac5e8714dea1f91c464a3"  # change this!
-  limiter: false
-  image_proxy: true 
+  secret_key: "641213149e1aa9ff3986e7919ad35e30abe7b8899d88c228e3650b509ee9f563"  # change this!
+  limiter: false  # enable this when running the instance for a public usage on the internet
+  image_proxy: true
 redis:
   url: redis://redis:6379/0
-engines:
-  - name: duckduckgo
-    engine: duckduckgo
-    shortcut: ddg
-    enabled: true
