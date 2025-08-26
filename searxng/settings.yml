@@ -4,7 +4,7 @@ server:
   # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
   secret_key: "99adbfc6080958cc2c5c6886fa241ccb8f8610bac98ac5e8714dea1f91c464a3"  # change this!
   limiter: false
-  image_proxy: true
+  image_proxy: true 
 redis:
   url: redis://redis:6379/0
 engines:
