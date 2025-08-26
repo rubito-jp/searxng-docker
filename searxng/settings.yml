@@ -8,9 +8,7 @@ server:
 redis:
   url: redis://redis:6379/0
 engines:
-  - name: google_jp
-    engine: google
-    language: ja
-    locale: ja-JP
-    shortcut: gjp
-    enabled: true 
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    enabled: true
