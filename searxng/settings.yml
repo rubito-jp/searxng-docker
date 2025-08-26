@@ -13,18 +13,4 @@ engines:
     language: ja
     locale: ja-JP
     shortcut: gjp
-    enabled: true
-
-  - name: google_vn
-    engine: google
-    language: vi
-    locale: vi-VN
-    shortcut: gvn
-    enabled: true
-
-  - name: google_us
-    engine: google
-    language: en
-    locale: en-US
-    shortcut: gus
-    enabled: true
+    enabled: true 
