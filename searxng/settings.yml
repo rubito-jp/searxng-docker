@@ -14,25 +14,42 @@ search:
   #  default_lang: "ja-JP"  
   # Results per page - optimized for API
   results_per_page: 20  # Good balance for API responses
-  max_page: 2           # Limit  2 to prevent excessive scraping
+  max_page: 2           # Limit 2 to prevent excessive scraping
   formats:
     - json            # Primary format for API
     - html            # Optional for debugging
 
 engines:
-  # Yahoo Japan
+  # DISABLE default engines that you don't want
+  - name: google
+    disabled: true
+  - name: startpage
+    disabled: true
+  - name: brave
+    disabled: true
+  - name: bing
+    disabled: true
   - name: yahoo
+    disabled: true  # Disable default yahoo to use our custom one
+  - name: duckduckgo
+    disabled: true  # Disable default duckduckgo to use our custom one
+  
+  # ENABLE only your custom engines
+  - name: yahoo_jp
     engine: yahoo
     shortcut: yh
     categories: general
     disabled: false
     weight: 2
     # Yahoo Japan specific settings
-    base_url: 'https://search.yahoo.co.jp/search'
+    base_url: 'https://search.yahoo.co.jp/'
     search_url: 'https://search.yahoo.co.jp/search?p={query}&ei=UTF-8'
+    results_xpath: '//div[contains(@class,"algo")]'
+    url_xpath: './/h3/a/@href'
+    title_xpath: './/h3/a'
+    content_xpath: './/p[@class="fz-ms lh-16"]'
     
-  # DuckDuckGo with Japan locale
-  - name: duckduckgo
+  - name: duckduckgo_jp
     engine: duckduckgo
     shortcut: ddg
     categories: general
@@ -42,17 +59,6 @@ engines:
     params:
       kl: 'jp-ja'
       safe_search: 0
-    
-  # Google (optional - uncomment if needed)
-  # - name: google
-  #   engine: google
-  #   shortcut: go
-  #   categories: general
-  #   disabled: false
-  #   weight: 3
-  #   params:
-  #     gl: 'jp'
-  #     hl: 'ja'
 
 # Redis configuration for caching
 redis:
@@ -71,6 +77,5 @@ outgoing:
 
 # UI settings - minimal for API usage
 ui:
-  default_locale: "ja"
   default_theme: simple  # Lighter theme for less overhead
   advanced_search: false # Disable for API simplicity
