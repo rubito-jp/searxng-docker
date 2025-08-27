@@ -10,8 +10,8 @@ server:
 search:
   # Safe search settings
   safe_search: 0  # 0=off, 1=moderate, 2=strict
-  # dont use Default search language we will use query if we need it
-  #  default_lang: "ja-JP"  
+  #  Default search language japanese
+  default_lang: "ja-JP"  
   # Results per page - optimized for API
   results_per_page: 20  # Good balance for API responses
   max_page: 2           # Limit 2 to prevent excessive scraping
@@ -52,17 +52,17 @@ redis:
 
 # Outgoing request settings - optimized for API usage
 outgoing:
-  request_timeout: 3.0
+  request_timeout: 4.0
   max_request_timeout: 15.0
   useragent_suffix: ""
   pool_connections: 5000  # Much higher for API load
-  pool_maxsize: 50       # Increased for concurrent requests
+  pool_maxsize: 500       # Increased for concurrent requests
   enable_http2: true
   retries: 1             # Quick retry on failures
   retry_on_http_error: true
 
 # UI settings - minimal for API usage
 ui:
-  default_locale: "ja"
+  default_locale: "en"
   default_theme: simple  # Lighter theme for less overhead
   advanced_search: false # Disable for API simplicity
