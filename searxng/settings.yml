@@ -8,6 +8,7 @@ server:
   formats:
     - html
     - json
+default_doi_resolver: "https://doi.org/"
 
 redis:
   url: redis://redis:6379/0

@@ -96,4 +96,9 @@ route {
 }
 
 # SearXNG
-reverse_proxy localhost:8080
+reverse_proxy localhost:8080 {
+    header_up X-Forwarded-For {remote_host}
+    header_up X-Forwarded-Proto {scheme}
+    header_up Host {host}
+}
+
