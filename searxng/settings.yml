@@ -1,27 +1,6 @@
 # see https://docs.searxng.org/admin/settings/settings.html#settings-use-default-settings
 use_default_settings: true
 
-# Keep only specific engines - much simpler approach!
-engines:
-  keep_only:
-    - yahoo
-    - duckduckgo
-  
-  # Configure specific engines
-  - name: yahoo
-    engine: yahoo
-    categories: general
-    weight: 2
-    disabled: false
-    
-  - name: duckduckgo
-    engine: duckduckgo
-    categories: general
-    weight: 1
-    disabled: false
-    params:
-      kl: 'jp-ja'  # Japan locale
-
 server:
   # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
   secret_key: "229e991b487b51bbb3a920cd59108fc986b019a15ba64165b8496abe494e46c4"  # change this!
@@ -39,6 +18,33 @@ search:
   formats:
     - json            # Primary format for API
     - html            # Optional for debugging
+
+engines:
+  # Disable unwanted default engines
+  - name: google
+    disabled: true
+  - name: startpage  
+    disabled: true
+  - name: brave
+    disabled: true
+  - name: bing
+    disabled: true
+  - name: qwant
+    disabled: true
+  - name: searx
+    disabled: true
+  
+  # Configure only the engines you want
+  - name: yahoo
+    disabled: false
+    weight: 2
+    
+  - name: duckduckgo
+    disabled: false
+    weight: 1
+    # Japan locale settings  
+    params:
+      kl: 'jp-ja'
 
 # Redis configuration for caching
 redis:
