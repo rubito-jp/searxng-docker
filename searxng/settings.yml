@@ -1,4 +1,4 @@
-use_default_settings: false
+use_default_settings: true
 
 server:
   secret_key: "f334ee5706379414b285254161f38e742b879e25e692b98bfeeb243a22af4027"   
