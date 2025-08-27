@@ -5,5 +5,9 @@ server:
   secret_key: "229e991b487b51bbb3a920cd59108fc986b019a15ba64165b8496abe494e46c4"  # change this!
   limiter: false  # enable this when running the instance for a public usage on the internet
   image_proxy: true
+search: 
+  formats:
+    - html
+    - json
 redis:
   url: redis://redis:6379/0
