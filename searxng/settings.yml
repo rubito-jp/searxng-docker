@@ -9,5 +9,17 @@ search:
   formats:
     - html
     - json
+engines:
+  yahoo:
+    enabled: true
+    weight: 2
+    params:
+      p: '{query}'
+  duckduckgo:
+    enabled: true
+    weight: 1
+    params:
+      kl: 'jp-ja'
+
 redis:
   url: redis://redis:6379/0
