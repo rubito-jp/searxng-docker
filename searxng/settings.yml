@@ -1,25 +1,76 @@
 # see https://docs.searxng.org/admin/settings/settings.html#settings-use-default-settings
 use_default_settings: true
+
 server:
   # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
   secret_key: "229e991b487b51bbb3a920cd59108fc986b019a15ba64165b8496abe494e46c4"  # change this!
   limiter: false  # enable this when running the instance for a public usage on the internet
   image_proxy: true
-search: 
+
+search:
+  # Safe search settings
+  safe_search: 0  # 0=off, 1=moderate, 2=strict
+  # dont use Default search language we will use query if we need it
+  #  default_lang: "ja-JP"  
+  # Results per page - optimized for API
+  results_per_page: 20  # Good balance for API responses
+  max_page: 2           # Limit  2 to prevent excessive scraping
   formats:
-    - html
-    - json
+    - json            # Primary format for API
+    - html            # Optional for debugging
+
 engines:
-  yahoo:
-    enabled: true
+  # Yahoo Japan
+  - name: yahoo
+    engine: yahoo
+    shortcut: yh
+    categories: general
+    disabled: false
     weight: 2
-    params:
-      p: '{query}'
-  duckduckgo:
-    enabled: true
+    # Yahoo Japan specific settings
+    base_url: 'https://search.yahoo.co.jp/search'
+    search_url: 'https://search.yahoo.co.jp/search?p={query}&ei=UTF-8'
+    
+  # DuckDuckGo with Japan locale
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    categories: general
+    disabled: false
     weight: 1
+    # Japan locale settings
     params:
       kl: 'jp-ja'
+      safe_search: 0
+    
+  # Google (optional - uncomment if needed)
+  # - name: google
+  #   engine: google
+  #   shortcut: go
+  #   categories: general
+  #   disabled: false
+  #   weight: 3
+  #   params:
+  #     gl: 'jp'
+  #     hl: 'ja'
 
+# Redis configuration for caching
 redis:
   url: redis://redis:6379/0
+
+# Outgoing request settings - optimized for API usage
+outgoing:
+  request_timeout: 3.0
+  max_request_timeout: 15.0
+  useragent_suffix: ""
+  pool_connections: 5000  # Much higher for API load
+  pool_maxsize: 50       # Increased for concurrent requests
+  enable_http2: true
+  retries: 1             # Quick retry on failures
+  retry_on_http_error: true
+
+# UI settings - minimal for API usage
+ui:
+  default_locale: "ja"
+  default_theme: simple  # Lighter theme for less overhead
+  advanced_search: false # Disable for API simplicity
