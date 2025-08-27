@@ -8,7 +8,7 @@
 			request>remote_ip ip_mask 8 32
 			request>client_ip ip_mask 8 32
 
-			# Remove identifiable information
+			# Remove identificable information
 			request>remote_port delete
 			request>headers delete
 			request>uri query {
@@ -50,10 +50,6 @@ encode zstd gzip
 	path /image_proxy
 }
 
-@searchjson {
-	path /search*
-}
-
 header {
 	# CSP (https://content-security-policy.com)
 	Content-Security-Policy "upgrade-insecure-requests; default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; form-action 'self' https:; font-src 'self'; frame-ancestors 'self'; base-uri 'self'; connect-src 'self'; img-src * data:; frame-src https:;"
@@ -72,6 +68,7 @@ header {
     
 	# enable HSTS
 	# WARNING: Once this value is set, the site must continue to support HTTPS until the expiry time is reached.
+
 	# Strict-Transport-Security max-age=15768000;
 
 	# Remove "Server" header
@@ -79,11 +76,6 @@ header {
 }
 
 header @api {
-	Access-Control-Allow-Methods "GET, OPTIONS"
-	Access-Control-Allow-Origin "*"
-}
-
-header @searchjson {
 	Access-Control-Allow-Methods "GET, OPTIONS"
 	Access-Control-Allow-Origin "*"
 }
@@ -96,9 +88,4 @@ route {
 }
 
 # SearXNG
-reverse_proxy localhost:8080 {
-    header_up X-Forwarded-For {remote_host}
-    header_up X-Forwarded-Proto {scheme}
-    header_up Host {host}
-}
-
+reverse_proxy localhost:8080
