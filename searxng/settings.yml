@@ -1,6 +1,27 @@
 # see https://docs.searxng.org/admin/settings/settings.html#settings-use-default-settings
 use_default_settings: true
 
+# Keep only specific engines - much simpler approach!
+engines:
+  keep_only:
+    - yahoo
+    - duckduckgo
+  
+  # Configure specific engines
+  - name: yahoo
+    engine: yahoo
+    categories: general
+    weight: 2
+    disabled: false
+    
+  - name: duckduckgo
+    engine: duckduckgo
+    categories: general
+    weight: 1
+    disabled: false
+    params:
+      kl: 'jp-ja'  # Japan locale
+
 server:
   # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
   secret_key: "229e991b487b51bbb3a920cd59108fc986b019a15ba64165b8496abe494e46c4"  # change this!
@@ -19,47 +40,6 @@ search:
     - json            # Primary format for API
     - html            # Optional for debugging
 
-engines:
-  # DISABLE default engines that you don't want
-  - name: google
-    disabled: true
-  - name: startpage
-    disabled: true
-  - name: brave
-    disabled: true
-  - name: bing
-    disabled: true
-  - name: yahoo
-    disabled: true  # Disable default yahoo to use our custom one
-  - name: duckduckgo
-    disabled: true  # Disable default duckduckgo to use our custom one
-  
-  # ENABLE only your custom engines
-  - name: yahoo_jp
-    engine: yahoo
-    shortcut: yh
-    categories: general
-    disabled: false
-    weight: 2
-    # Yahoo Japan specific settings
-    base_url: 'https://search.yahoo.co.jp/'
-    search_url: 'https://search.yahoo.co.jp/search?p={query}&ei=UTF-8'
-    results_xpath: '//div[contains(@class,"algo")]'
-    url_xpath: './/h3/a/@href'
-    title_xpath: './/h3/a'
-    content_xpath: './/p[@class="fz-ms lh-16"]'
-    
-  - name: duckduckgo_jp
-    engine: duckduckgo
-    shortcut: ddg
-    categories: general
-    disabled: false
-    weight: 1
-    # Japan locale settings
-    params:
-      kl: 'jp-ja'
-      safe_search: 0
-
 # Redis configuration for caching
 redis:
   url: redis://redis:6379/0
@@ -77,5 +57,6 @@ outgoing:
 
 # UI settings - minimal for API usage
 ui:
+  default_locale: "ja"
   default_theme: simple  # Lighter theme for less overhead
   advanced_search: false # Disable for API simplicity
